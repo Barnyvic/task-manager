@@ -1,0 +1,23 @@
+{
+  "name": "Task-Manager",
+  "version": "1.0.0",
+  "main": "dist/server.js",
+  "author": "Barny Victor",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "nodemon": "^3.0.1",
+    "typescript": "^5.2.2"
+  },
+  "scripts": {
+    "start": "tsc && node dist/server.js",
+    "build": "tsc --project ./",
+    "start:dev": "nodemon src/server.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mongoose": "^7.5.2"
+  }
+}
