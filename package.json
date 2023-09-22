@@ -10,7 +10,8 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "start": "tsc && node dist/server.js",
+    "start": "node dist/server.js",
+    "start:prod": "tsc && node dist/server.js",
     "build": "tsc --project ./",
     "start:dev": "nodemon src/server.ts"
   },
