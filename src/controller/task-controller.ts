@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Task } from "../model/task-model";
+import { sequelize } from "../model/postgress.model";
 
 export const createTask = async (req, res) => {
   try {
@@ -15,6 +16,12 @@ export const createTask = async (req, res) => {
 
     const newTask = new Task({ title, description, completed: false });
     await newTask.save();
+
+     const newTaskSequelize = await sequelize.models.Task.create({
+       title,
+       description,
+       completed: false,
+     });
 
     res.redirect("/");
   } catch (error) {
@@ -38,7 +45,7 @@ export const renderEditPage = async (req, res) => {
     if (!task) {
       return res.status(404).send("Task not found");
     }
-       res.render("edit", { task });
+    res.render("edit", { task });
   } catch (error) {
     return res.status(error?.status || error?.statusCode || 500).json({
       error: true,
@@ -61,12 +68,24 @@ export const editTask = async (req: Request, res: Response) => {
       return res.status(404).send("Task not found");
     }
 
-
     task.title = title;
     task.description = description;
     task.completed = completed === "true";
 
     await task.save();
+
+    const taskSequelize = await sequelize.models.Task.findOne({
+      where: { title: title }, 
+    });
+    if (!taskSequelize) {
+      return res.status(404).send("Task not found");
+    }
+
+     taskSequelize.dataValues.title = title;
+     taskSequelize.dataValues.description = description;
+     taskSequelize.dataValues.completed = completed === "true";
+
+     await taskSequelize.save();
 
     res.redirect("/");
   } catch (error) {

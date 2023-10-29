@@ -1,0 +1,31 @@
+version: '3'
+services:
+  postgres-db:
+    image: postgres:latest
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: victor
+      POSTGRES_PASSWORD: yungvicky007
+      POSTGRES_DB: taskmanager
+    ports:
+      - "5432:5432"
+  
+  mongo-db:
+    image: mongo:latest
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+
+  node-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: task-app
+    ports:
+      - "4000:4000"
+    depends_on:
+      - postgres-db
+      - mongo-db
+    environment:
+      - POSTGRES_HOST=postgres-db
+      - MONGO_HOST=mongo-db
