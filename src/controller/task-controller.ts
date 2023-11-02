@@ -17,11 +17,11 @@ export const createTask = async (req, res) => {
     const newTask = new Task({ title, description, completed: false });
     await newTask.save();
 
-    //  const newTaskSequelize = await sequelize.models.Task.create({
-    //    title,
-    //    description,
-    //    completed: false,
-    //  });
+     const newTaskSequelize = await sequelize.models.Task.create({
+       title,
+       description,
+       completed: false,
+     });
 
     res.status(200).redirect("/");
   } catch (error) {
@@ -74,18 +74,18 @@ export const editTask = async (req: Request, res: Response) => {
 
     await task.save();
 
-    // const taskSequelize = await sequelize.models.Task.findOne({
-    //   where: { title: title }, 
-    // });
-    // if (!taskSequelize) {
-    //   return res.status(404).send("Task not found");
-    // }
+    const taskSequelize = await sequelize.models.Task.findOne({
+      where: { title: title }, 
+    });
+    if (!taskSequelize) {
+      return res.status(404).send("Task not found");
+    }
 
-    //  taskSequelize.dataValues.title = title;
-    //  taskSequelize.dataValues.description = description;
-    //  taskSequelize.dataValues.completed = completed === "true";
+     taskSequelize.dataValues.title = title;
+     taskSequelize.dataValues.description = description;
+     taskSequelize.dataValues.completed = completed === "true";
 
-    //  await taskSequelize.save();
+     await taskSequelize.save();
 
     res.redirect("/");
   } catch (error) {
