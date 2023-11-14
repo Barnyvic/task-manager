@@ -30,6 +30,7 @@
     "mongoose": "^7.5.2",
     "pg": "^8.11.3",
     "sequelize": "^6.33.0",
-    "sequelize-typescript": "^2.1.5"
+    "sequelize-typescript": "^2.1.5",
+    "winston": "^3.11.0"
   }
 }

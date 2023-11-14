@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { Client } from "pg";
 dotenv.config();
 
 
